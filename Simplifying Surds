@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGCSE – Simplifying Surds (New Set)</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0f4ff; --white:#ffffff; --navy:#1a2e6c; --blue:#3b5bdb;
+  --sky:#74c0fc; --green:#2f9e44; --green-lt:#d3f9d8;
+  --red:#c92a2a; --red-lt:#ffe3e3; --yellow:#f59f00;
+  --border:#dde3f0; --text:#1a1a2e; --muted:#6b7280;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);font-family:'Nunito Sans',sans-serif;color:var(--text);min-height:100vh;padding-bottom:60px;}
+
+/* HEADER */
+.header{background:var(--navy);padding:32px 24px 28px;text-align:center;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-70px;right:-70px;width:240px;height:240px;border-radius:50%;background:rgba(116,192,252,0.13);}
+.header::after{content:'';position:absolute;bottom:-50px;left:-50px;width:180px;height:180px;border-radius:50%;background:rgba(59,91,219,0.18);}
+.header-inner{position:relative;z-index:1;}
+.sats-badge{display:inline-block;background:var(--yellow);color:var(--navy);font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:6px 20px;border-radius:999px;margin-bottom:14px;}
+.header h1{font-family:'Nunito',sans-serif;font-size:clamp(22px,5vw,34px);font-weight:900;color:#fff;line-height:1.15;}
+.header-sub{margin-top:10px;color:var(--sky);font-size:15px;}
+
+/* ANALYSIS PANEL */
+.analysis-wrap{max-width:860px;margin:0 auto;padding:28px 20px 0;}
+.analysis-box{background:var(--white);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:24px;box-shadow:0 2px 12px rgba(26,46,108,0.06);}
+.analysis-header{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.analysis-header h2{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:#fff;letter-spacing:0.3px;}
+.analysis-toggle{font-family:'Nunito',sans-serif;font-size:12px;color:var(--sky);font-weight:700;transition:transform 0.25s;}
+.analysis-body{padding:20px;display:grid;gap:14px;}
+.analysis-body.collapsed{display:none;}
+
+.analysis-row{display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:start;padding:10px 14px;background:#f8f9ff;border:1.5px solid var(--border);border-radius:8px;}
+.a-label{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);}
+.a-value{font-size:13.5px;color:#3a3a5c;line-height:1.6;}
+
+.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.diff-card{border-radius:8px;padding:12px 14px;border:1.5px solid;}
+.diff-card.easy{background:rgba(74,222,128,0.08);border-color:rgba(47,158,68,0.3);}
+.diff-card.med {background:rgba(245,159,0,0.08);border-color:rgba(245,159,0,0.35);}
+.diff-card.hard{background:rgba(201,42,42,0.07);border-color:rgba(201,42,42,0.3);}
+.diff-title{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
+.diff-card.easy .diff-title{color:var(--green);}
+.diff-card.med  .diff-title{color:#c87800;}
+.diff-card.hard .diff-title{color:var(--red);}
+.diff-desc{font-size:12.5px;color:#5a5a6e;line-height:1.5;}
+
+/* WORKSHEET */
+.worksheet-wrap{max-width:860px;margin:0 auto;padding:0 20px;}
+
+.ws-section{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:24px 22px;margin-bottom:20px;box-shadow:0 2px 12px rgba(26,46,108,0.06);}
+
+.ws-section-head{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:1.5px solid var(--border);}
+.ws-section-badge{font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;padding:6px 18px;border-radius:8px;}
+.ws-section-badge.a{background:rgba(116,192,252,0.15);color:#1971c2;border:1.5px solid rgba(116,192,252,0.4);}
+.ws-section-badge.b{background:rgba(169,227,75,0.15);color:#5c940d;border:1.5px solid rgba(169,227,75,0.4);}
+.ws-section-badge.c{background:rgba(255,169,77,0.15);color:#c87800;border:1.5px solid rgba(255,169,77,0.4);}
+.ws-section-title{font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:var(--navy);}
+.ws-section-inst{font-size:13px;color:var(--muted);font-style:italic;}
+
+/* 4-column question grid */
+.q-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.q-cell{padding:16px 14px 18px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);min-height:80px;position:relative;}
+.q-cell:nth-child(4n){border-right:none;}
+.q-cell:nth-last-child(-n+4){border-bottom:none;}
+
+.q-cell-num{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;color:var(--blue);margin-bottom:8px;}
+.q-cell-expr{font-family:'Nunito',sans-serif;font-size:15px;font-weight:700;color:var(--navy);line-height:1.5;}
+.q-cell-answer{margin-top:14px;border-top:1px solid var(--border);padding-top:6px;min-height:28px;font-size:12px;color:var(--muted);}
+
+/* Answer key */
+.answers-section{background:var(--white);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(26,46,108,0.06);margin-bottom:20px;}
+.answers-header{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.answers-header h2{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:#fff;}
+.answers-toggle{font-family:'Nunito',sans-serif;font-size:12px;color:var(--sky);font-weight:700;}
+.answers-body{display:none;padding:20px;}
+.answers-body.show{display:block;}
+
+.ak-section-label{font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;margin-top:16px;}
+.ak-section-label:first-child{margin-top:0;}
+.ak-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px;}
+.ak-cell{background:#f8f9ff;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;}
+.ak-cell-num{font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;color:var(--blue);margin-bottom:3px;}
+.ak-cell-ans{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--navy);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="sats-badge">IGCSE Maths — New Task Set</div>
+    <h1>Simplifying Surds</h1>
+    <p class="header-sub">20 unique questions · Adding &amp; Subtracting Surds · Three difficulty sections</p>
+  </div>
+</div>
+
+<!-- ANALYSIS PANEL -->
+<div class="analysis-wrap">
+  <div class="analysis-box">
+    <div class="analysis-header" onclick="toggleAnalysis()">
+      <h2>📋 Worksheet Analysis — Topic, Subtopics &amp; Difficulty</h2>
+      <span class="analysis-toggle" id="atoggle">▼ Show</span>
+    </div>
+    <div class="analysis-body collapsed" id="analysis-body">
+
+      <div class="analysis-row">
+        <div class="a-label">Main Topic</div>
+        <div class="a-value"><strong>Surds — Simplification, Addition and Subtraction</strong><br>IGCSE / GCSE Higher and A-Level Foundation. Covers the manipulation of irrational numbers in surd form without use of a calculator.</div>
+      </div>
+
+      <div class="analysis-row">
+        <div class="a-label">Subtopics identified</div>
+        <div class="a-value">
+          <strong>1. Collecting like surds</strong> — adding/subtracting surds that already share the same radicand (e.g. 8√2 + 9√2)<br>
+          <strong>2. Mixed rational &amp; irrational terms</strong> — combining integer constants alongside surd terms, including evaluating perfect squares like √9 = 3<br>
+          <strong>3. Simplifying a surd before collecting</strong> — expressing √n in simplified form by extracting the largest perfect square factor before adding (e.g. √63 = 3√7)<br>
+          <strong>4. Multi-step simplification</strong> — two or more surds must each be simplified before any collection is possible; result may contain two distinct surd types
+        </div>
+      </div>
+
+      <div class="analysis-row">
+        <div class="a-label">Solution Methods</div>
+        <div class="a-value">
+          <strong>Section A:</strong> Direct collection — identify coefficient of each √k, apply integer arithmetic, combine. Equivalent to collecting like algebraic terms.<br>
+          <strong>Section B:</strong> Factorise the radicand to extract the largest perfect square: √(a²·b) = a√b. Then collect terms sharing the same radicand.<br>
+          <strong>Section C:</strong> Both surds require simplification first; may yield two non-combinable surd types (unlike surds remain separate).
+        </div>
+      </div>
+
+      <div style="margin-top:4px;">
+        <div class="a-label" style="font-family:'Nunito',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;">Difficulty Levels</div>
+        <div class="diff-grid">
+          <div class="diff-card easy">
+            <div class="diff-title">⬜ Section A — Accessible</div>
+            <div class="diff-desc">Like surds present. Single arithmetic operation on coefficients. Tests whether students recognise that only like surds can be combined. Includes a trap with perfect squares (√9, √16).</div>
+          </div>
+          <div class="diff-card med">
+            <div class="diff-title">◧ Section B — Moderate</div>
+            <div class="diff-desc">Students must simplify at least one surd before collecting. Key skill: finding the largest perfect square factor. Common error: using a non-largest factor and leaving an unsimplified answer.</div>
+          </div>
+          <div class="diff-card hard">
+            <div class="diff-title">⬛ Section C — Challenging</div>
+            <div class="diff-desc">Both surds need simplification; some questions yield unlike surds that cannot be combined (tests conceptual understanding). Multi-step arithmetic required; integer coefficients outside the root add complexity.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- WORKSHEET -->
+<div class="worksheet-wrap">
+
+  <!-- SECTION A -->
+  <div class="ws-section">
+    <div class="ws-section-head">
+      <span class="ws-section-badge a">Section A</span>
+      <div>
+        <div class="ws-section-title">Simplify — collect like surds directly</div>
+        <div class="ws-section-inst">All surds already share the same radicand. Collect coefficients as you would with algebraic like terms.</div>
+      </div>
+    </div>
+    <div class="q-grid" id="grid-a"></div>
+  </div>
+
+  <!-- SECTION B -->
+  <div class="ws-section">
+    <div class="ws-section-head">
+      <span class="ws-section-badge b">Section B</span>
+      <div>
+        <div class="ws-section-title">Simplify — simplify at least one surd first</div>
+        <div class="ws-section-inst">Find the largest perfect square factor of each surd, simplify, then collect like terms.</div>
+      </div>
+    </div>
+    <div class="q-grid" id="grid-b"></div>
+  </div>
+
+  <!-- SECTION C -->
+  <div class="ws-section">
+    <div class="ws-section-head">
+      <span class="ws-section-badge c">Section C</span>
+      <div>
+        <div class="ws-section-title">Simplify — fully simplify all surds, then collect</div>
+        <div class="ws-section-inst">Both surds require simplification. Some answers will contain two unlike surd types — leave these unsimplified.</div>
+      </div>
+    </div>
+    <div class="q-grid" id="grid-c"></div>
+  </div>
+
+  <!-- ANSWERS -->
+  <div class="answers-section">
+    <div class="answers-header" onclick="toggleAnswers()">
+      <h2>✅ Answer Key</h2>
+      <span class="answers-toggle" id="atog">▼ Show Answers</span>
+    </div>
+    <div class="answers-body" id="answers-body"></div>
+  </div>
+
+</div>
+
+<script>
+// Surd renderer: "13√2" → styled HTML
+function sr(expr) {
+  return expr.replace(/(-?\d*\.?\d*)√(\d+)/g, (m, coef, rad) => {
+    const c = (coef === '' || coef === '1') ? '' : (coef === '-1' ? '−' : coef.replace('-','−'));
+    const plus = '';
+    return `${c}<span style="font-size:1.05em">√</span><span style="text-decoration:overline;font-size:0.87em;letter-spacing:0.4px">${rad}</span>`;
+  })
+  .replace(/\+\s*−/g, '− ')
+  .replace(/−/g, ' − ')
+  .replace(/\+/g, ' + ')
+  .replace(/^\s*\+\s*/,'')
+  .replace(/\s{2,}/g,' ');
+}
+
+/* ── NEW QUESTIONS ─────────────────────────────────────────── */
+const SEC_A = [
+  // 1: direct coefficients, three terms
+  { expr: '5√3 + 11√3 − 6√3',      ans: '10√3' },
+  // 2: coefficient 1 hidden (√5 = 1√5)
+  { expr: '√5 + 4√5 − 2√5',        ans: '3√5' },
+  // 3: four terms, two surd types
+  { expr: '9√7 + 3√2 − 4√7 + √2',  ans: '5√7 + 4√2' },
+  // 4: two surd types cancel partially
+  { expr: '6√11 − 2√3 − 6√11 + 8√3', ans: '6√3' },
+  // 5: integers + single surd type
+  { expr: '4 + 5√6 + 7 + 3√6',     ans: '11 + 8√6' },
+  // 6: integers + subtraction of surd
+  { expr: '7√3 − 4 − 3√3 + 10',    ans: '4√3 + 6' },
+  // 7: perfect square inside — √25 = 5
+  { expr: '3 + √25 − 4√7',         ans: '8 − 4√7' },
+  // 8: perfect square — √4 = 2, combined with integers
+  { expr: '3√5 − 2 + 5√5 − √4',    ans: '8√5 − 4' },
+];
+
+const SEC_B = [
+  // 1: √75 = 5√3
+  { expr: '√75 + 2√3',             ans: '7√3' },
+  // 2: √50 = 5√2, + √2
+  { expr: '3√2 + √50',             ans: '8√2' },
+  // 3: √45 = 3√5
+  { expr: '7√5 − √45',             ans: '4√5' },
+  // 4: √12 = 2√3; large coef outside
+  { expr: '5√3 + √12',             ans: '7√3' },
+  // 5: √72 = 6√2
+  { expr: '√72 − 3√2',             ans: '3√2' },
+  // 6: √108 = 6√3; unlike result
+  { expr: '√108 + 4√5',            ans: '6√3 + 4√5' },
+  // 7: √32 = 4√2, √8 = 2√2
+  { expr: '√32 + √8 + 5√2',        ans: '11√2' },
+  // 8: √175 = 5√7, √7
+  { expr: '√175 − 3√7 + √7',       ans: '3√7' },
+];
+
+const SEC_C = [
+  // 1: √72 = 6√2, √8 = 2√2
+  { expr: '√72 − √8',              ans: '4√2' },
+  // 2: √75 = 5√3, √48 = 4√3
+  { expr: '√75 + √48',             ans: '9√3' },
+  // 3: √200 = 10√2, √18 = 3√2
+  { expr: '√200 − √18',            ans: '7√2' },
+  // 4: √28 = 2√7, √63 = 3√7 — unlike from √45 = 3√5
+  { expr: '√28 − √63 + √45',       ans: '−√7 + 3√5' },
+];
+
+function buildGrid(id, questions, startNum) {
+  const grid = document.getElementById(id);
+  questions.forEach((q, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'q-cell';
+    cell.innerHTML = `
+      <div class="q-cell-num">${startNum + i})</div>
+      <div class="q-cell-expr">${renderExpr(q.expr)}</div>
+      <div class="q-cell-answer"></div>`;
+    grid.appendChild(cell);
+  });
+}
+
+function renderExpr(expr) {
+  // Replace n√k with overlined radicand display
+  return expr
+    .replace(/(\d*)√(\d+)/g, (m, coef, rad) => {
+      const c = coef ? `<strong>${coef}</strong>` : '';
+      return `${c}<span style="font-size:1.08em">√</span><span style="text-decoration:overline;font-size:0.86em;font-weight:700;letter-spacing:0.3px">${rad}</span>`;
+    });
+}
+
+function renderAns(ans) {
+  return ans
+    .replace(/(-?\d*)√(\d+)/g, (m, coef, rad) => {
+      const c = coef && coef !== '1' && coef !== '-1' ? `<strong>${coef.replace('-','−')}</strong>` : (coef==='-1'?'−':'');
+      return `${c}<span style="font-size:1.05em">√</span><span style="text-decoration:overline;font-size:0.85em;font-weight:700">${rad}</span>`;
+    })
+    .replace(/-/g,'−');
+}
+
+buildGrid('grid-a', SEC_A, 1);
+buildGrid('grid-b', SEC_B, 9);
+buildGrid('grid-c', SEC_C, 17);
+
+/* ── ANSWER KEY ── */
+function buildAnswerKey() {
+  const body = document.getElementById('answers-body');
+  const sections = [
+    { label:'Section A — Questions 1–8', qs: SEC_A, start:1 },
+    { label:'Section B — Questions 9–16', qs: SEC_B, start:9 },
+    { label:'Section C — Questions 17–20', qs: SEC_C, start:17 },
+  ];
+
+  sections.forEach(sec => {
+    const lbl = document.createElement('div');
+    lbl.className = 'ak-section-label';
+    lbl.textContent = sec.label;
+    body.appendChild(lbl);
+
+    // pairs of 4
+    for (let i=0; i<sec.qs.length; i+=4) {
+      const row = document.createElement('div');
+      row.className = 'ak-row';
+      for (let j=i; j<Math.min(i+4, sec.qs.length); j++) {
+        const cell = document.createElement('div');
+        cell.className = 'ak-cell';
+        cell.innerHTML = `<div class="ak-cell-num">${sec.start+j})</div><div class="ak-cell-ans">${renderAns(sec.qs[j].ans)}</div>`;
+        row.appendChild(cell);
+      }
+      body.appendChild(row);
+    }
+  });
+
+  // worked hints
+  const hints = document.createElement('div');
+  hints.style.cssText = 'margin-top:18px;padding:14px 16px;background:#f8f9ff;border:1.5px solid var(--border);border-radius:10px;font-size:13px;color:#5a5a6e;line-height:1.7;';
+  hints.innerHTML = `<strong style="font-family:'Nunito',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);">Key Methods Used</strong><br>
+  <strong>Q7 (A):</strong> √25 = 5 exactly, so 3 + 5 = 8. &nbsp;
+  <strong>Q8 (A):</strong> √4 = 2, so −2 − 2 = −4. &nbsp;
+  <strong>Q12 (B):</strong> √108 = 6√3 (108 = 36×3). Unlike surds √3 and √5 cannot be combined. &nbsp;
+  <strong>Q20 (C):</strong> √28 = 2√7, √63 = 3√7, √45 = 3√5 → combine √7 terms: (2−3)√7 = −√7. Unlike √5 stays separate.`;
+  body.appendChild(hints);
+}
+
+buildAnswerKey();
+
+/* ── TOGGLES ── */
+function toggleAnalysis() {
+  const body = document.getElementById('analysis-body');
+  const tog = document.getElementById('atoggle');
+  const collapsed = body.classList.contains('collapsed');
+  body.classList.toggle('collapsed', !collapsed);
+  tog.textContent = collapsed ? '▲ Hide' : '▼ Show';
+}
+
+function toggleAnswers() {
+  const body = document.getElementById('answers-body');
+  const tog = document.getElementById('atog');
+  const isShown = body.classList.contains('show');
+  body.classList.toggle('show', !isShown);
+  tog.textContent = isShown ? '▼ Show Answers' : '▲ Hide Answers';
+}
+</script>
+</body>
+</html>
